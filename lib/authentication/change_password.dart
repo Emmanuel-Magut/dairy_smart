@@ -11,7 +11,7 @@ class ForgotPasswordPage extends StatefulWidget {
 class _ForgotPassWordPageState extends State<ForgotPasswordPage> {
   final _emailController = TextEditingController();
   final currentUser = FirebaseAuth.instance.currentUser;
-  final _formKey = GlobalKey<FormState>();
+
   @override
   void dispose() {
     _emailController.dispose();

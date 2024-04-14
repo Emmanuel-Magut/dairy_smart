@@ -19,7 +19,9 @@ class _LoginPageState extends State<LoginPage> {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
+  bool _obscurePassword = true; // Added variable to track password visibility
   void SignUserIn() async {
     //loading circle
     showDialog(context: context, builder: (context) {
@@ -46,11 +48,15 @@ class _LoginPageState extends State<LoginPage> {
           SnackBar(content:Text(
             e.toString(),
             style: const TextStyle(
-              color: Colors.red,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
             ),
           ),
           ),
+
       );
+      Navigator.pop(context);
     }
 
   }
@@ -108,58 +114,91 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 const SizedBox(height:20),
-                //user name
-                 Container(
-                   padding: const EdgeInsets.symmetric(horizontal: 30),
-                   child: Container(
-                     decoration: BoxDecoration(
-                       borderRadius: BorderRadius.circular(12),
-                       border: Border.all(
-                         color: Colors.green,
-                       )
-                     ),
-                     child: TextField(
-                       controller: emailController,
-                       obscureText: false,
-                       cursorColor: Colors.green,
-                       decoration: const InputDecoration(
-                         prefixIcon: Icon(Icons.email),
-                           border: OutlineInputBorder(
-                             borderSide: BorderSide.none,
-                           ),
-                         hintText: 'Email'
-                       ),
-                     ),
-                   ),
-                 ),
-                const SizedBox(height:30),
-                //password
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                        color: Colors.green,
-                      )
-                    ),
-                    child: TextField(
-                      controller: passwordController,
-                      obscureText: true,
-                      cursorColor: Colors.green,
-
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.key),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
+                Form(
+                    key: _formKey,
+                    child: Column(
+                  children: [
+                    //user name
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: Colors.green,
+                            )
                         ),
-                          hintText: 'Password'
-                          
+                        child: TextFormField(
+                          controller: emailController,
+                          obscureText: false,
+                          cursorColor: Colors.green,
+                          decoration: const InputDecoration(
+                              prefixIcon: Icon(Icons.email),
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                              ),
+                              hintText: 'Email'
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Oops! email is required';
+                            }
+                            // Regular expression for email validation
+                            final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                            if (!emailRegex.hasMatch(value)) {
+                              return 'Please enter a valid email address';
+                            }
+                            return null;
+                          },
+                        ),
                       ),
                     ),
-                  ),
-                ),
+                    const SizedBox(height:30),
+                    //password
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: Colors.green,
+                            )
+                        ),
+                        child: TextFormField(
+                          controller: passwordController,
+                          obscureText: _obscurePassword,
+                          cursorColor: Colors.green,
+                          decoration: InputDecoration(
+                            suffixIcon: IconButton( // Changed to suffixIcon
+                              onPressed: () {
+                                setState(() {
+                                  _obscurePassword = !_obscurePassword; // Toggling password visibility
+                                });
+                              },
+                              icon: Icon(Icons.remove_red_eye_outlined),
+                            ),
+                            prefixIcon: Icon(Icons.key),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                            ),
+                            hintText: 'Password',
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Oops! password is required';
+                            }
+                            if (value.length < 6) {
+                              return 'Password must be at least six characters long';
+                            }
+                            return null;
+                          },
 
+                        ),
+                      ),
+                    ),
+
+                  ],
+                )),
                 const SizedBox(height:25),
                 //forgot password
                 Padding(
@@ -188,21 +227,26 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 25),
                 //button
-                 TextButton(onPressed: SignUserIn,
-                     child: Container(
-                       padding: const EdgeInsets.only(left: 20,right: 20,top: 12,bottom: 12),
-                       decoration: BoxDecoration(
-                         borderRadius: BorderRadius.circular(12),
-                         color: Colors.green,
-                       ),
-                         child: Text('Login',
-                         style: TextStyle(
-                           fontSize: 20,
-                           fontWeight: FontWeight.bold,
-                           color: Colors.white,
-                         ),
-                         ),
+                 GestureDetector(
+                   onTap: (){
+                     if (_formKey.currentState!.validate()){
+                       SignUserIn();
+                     }
+                   },
+                   child: Container(
+                     padding: const EdgeInsets.only(left: 20,right: 20,top: 12,bottom: 12),
+                     decoration: BoxDecoration(
+                       borderRadius: BorderRadius.circular(12),
+                       color: Colors.green,
                      ),
+                       child: Text('Login',
+                       style: TextStyle(
+                         fontSize: 20,
+                         fontWeight: FontWeight.bold,
+                         color: Colors.white,
+                       ),
+                       ),
+                   ),
                  ),
                 const SizedBox(height:25),
 

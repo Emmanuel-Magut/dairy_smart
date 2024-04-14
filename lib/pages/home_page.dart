@@ -10,8 +10,42 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Welcome To Home Page'),
+    return Scaffold(
+      appBar: AppBar(
+
+      ),
+      drawer: Drawer(
+        child: Column(
+          children: [
+            DrawerHeader(child: Column(
+              children: [
+                Icon(Icons.account_circle,
+                size: 40,
+                ),
+              ],
+            )),
+
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    ListTile(
+                      leading: Icon(Icons.home),
+                      title: Text('DASHBOARD'),
+                    ),
+                  ],
+                ),
+
+                ListTile(
+                  leading: Icon(Icons.home),
+                  title: Text('DASHBOARD'),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
     );
   }
 }
