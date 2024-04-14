@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "426832972594",
+    "project_id": "dairy-smart",
+    "storage_bucket": "dairy-smart.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426832972594:android:383a0ee0ca768053cee52b",
+        "android_client_info": {
+          "package_name": "com.example.dairy_smart"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAy-E758DbE7v0nnC8_M9n0L37FUdjWNQU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
