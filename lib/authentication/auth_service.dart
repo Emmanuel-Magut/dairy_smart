@@ -19,7 +19,9 @@ class AuthService extends ChangeNotifier{
        _firestore.collection('users').doc(userCredential.user!.uid).set({
 
          'uid' : userCredential.user!.uid,
-         'email': email,
+         'email': userCredential.user!.email,
+         'username': userCredential.user!.email?.split('@')[0],
+
 
        },
        SetOptions(merge: true),
@@ -29,7 +31,7 @@ class AuthService extends ChangeNotifier{
        throw Exception(e.code);
      }
     }
-    //create user
+
 
   Future<UserCredential> signUpWithEmailandPassword(String email, password) async {
     try {
