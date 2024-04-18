@@ -30,17 +30,16 @@ class _UserImageState extends State<UserImage> {
           } else {
             var userData = snapshot.data!.data() as Map<String, dynamic>;
             var profileImageUrl = userData['profileImage'] as String?;
-            var username = userData['username'] as String?;
             return profileImageUrl != null
                 ? GestureDetector(
               onTap: (){
-      
+
               },
               child: ClipOval(
                 child: Image.network(
                   profileImageUrl,
-                  width: 80,
-                  height: 80,
+                  width: 100,
+                  height: 100,
                   fit: BoxFit.cover,
                 ),
               ),

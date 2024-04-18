@@ -1,5 +1,9 @@
+import 'package:dairy_smart/pages/Dairy_Cattle/dairy_cows.dart';
+import 'package:dairy_smart/pages/Dairy_Cattle/register_cow.dart';
+import 'package:dairy_smart/pages/profile_page.dart';
 import 'package:dairy_smart/pages/user_image.dart';
 import 'package:dairy_smart/pages/user_name.dart';
+import 'package:dairy_smart/pages/users.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -35,7 +39,11 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     GestureDetector(
                       onTap: (){
-                        Navigator.pop(context);
+                        //Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context)=> RegisterCow())
+                        );
                       },
                       child: const ListTile(
                         leading: Icon(Icons.home,
@@ -52,7 +60,11 @@ class _HomePageState extends State<HomePage> {
                     //PROFILE
                     GestureDetector(
                       onTap: (){
-                        Navigator.pop(context);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) =>const ProfilePage()),
+
+                        );
                       },
                       child: const ListTile(
                         leading: Icon(Icons.account_circle,
@@ -68,7 +80,13 @@ class _HomePageState extends State<HomePage> {
                     ),
                     //USERS
                     GestureDetector(
-                      onTap: (){},
+                      onTap: (){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context)=>Users())
+                        );
+
+                      },
                       child: const ListTile(
                         leading: Icon(Icons.supervised_user_circle_sharp,
                           size: 30,
@@ -84,7 +102,10 @@ class _HomePageState extends State<HomePage> {
                     //ANIMALS
                     GestureDetector(
                       onTap: (){
-                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context)=>DairyCows())
+                        );
                       },
                       child: const ListTile(
                         leading: Icon(Icons.pets,

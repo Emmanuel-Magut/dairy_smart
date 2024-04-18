@@ -20,8 +20,8 @@ class AuthService extends ChangeNotifier{
 
          'uid' : userCredential.user!.uid,
          'email': userCredential.user!.email,
-         'username': userCredential.user!.email?.split('@')[0],
-
+         'active': bool,
+        // 'username': userCredential.user!.email?.split('@')[0],
 
        },
        SetOptions(merge: true),
